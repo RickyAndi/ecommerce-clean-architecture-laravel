@@ -1,7 +1,7 @@
 name: ecommerce ci and cd
 on:
   push:
-    branches: [master]
+    branches: [main]
 jobs:
   unit-test:
     runs-on: ubuntu-latest
