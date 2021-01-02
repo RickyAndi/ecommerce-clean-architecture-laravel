@@ -1,0 +1,23 @@
+name: ecommerce ci and cd
+on:
+  push:
+    branches: [master]
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: php-setup
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.3.21'
+          extensions: bcmath, ctype, fileinfo, json, mbstring, openssl, pdo, tokenizer, xml
+          tools: composer:v2, phpunit
+      - name: laravel-setup
+        run: |
+          cp .env.example .env
+          composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+          php artisan key:generate
+          chmod -R 777 storage bootstrap/cache
+      - name: run-test
+        run: php artisan test
