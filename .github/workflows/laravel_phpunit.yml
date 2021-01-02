@@ -11,7 +11,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
           MYSQL_DATABASE: db_test
-          ports: 3306
+          ports: 33306:3306
     steps:
       - uses: actions/checkout@v2
       - name: php-setup
